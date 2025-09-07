@@ -1,0 +1,18 @@
+
+.article-header {
+  backdrop-filter: blur(10px);
+  mask: linear-gradient(180deg, #000000 50%, transparent 100%);
+  -webkit-mask: linear-gradient(180deg, #000000 50%, transparent 100%);
+}
+
+.article-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: var(--background);
+  mask: linear-gradient(180deg, #000000 60%, transparent 100%);
+  -webkit-mask: linear-gradient(180deg, #000000 60%, transparent 100%);
+}

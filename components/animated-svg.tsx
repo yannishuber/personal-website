@@ -3,13 +3,20 @@
 import { motion, useMotionValue, useTransform, animate } from "motion/react";
 import { useEffect } from "react";
 
-export default function AnimatedInitials({ stroke }: { stroke: string }) {
+export default function AnimatedInitials({
+  stroke,
+  className,
+}: {
+  stroke: string;
+  className?: string;
+}) {
   const progress = useMotionValue(0);
 
   const path1Length = useTransform(progress, [0, 0.33], [0, 1]);
   const path2Length = useTransform(progress, [0.33, 0.66], [0, 1]);
   const path3Length = useTransform(progress, [0.66, 1], [0, 1]);
 
+  const path1Opacity = useTransform(progress, (val) => (val > 0 ? 1 : 0));
   const path2Opacity = useTransform(progress, (val) => (val >= 0.33 ? 1 : 0));
   const path3Opacity = useTransform(progress, (val) => (val >= 0.66 ? 1 : 0));
 
@@ -17,6 +24,7 @@ export default function AnimatedInitials({ stroke }: { stroke: string }) {
     const controls = animate(progress, 1, {
       duration: 2,
       ease: "easeInOut",
+      delay: 1,
     });
 
     return controls.stop;
@@ -26,7 +34,7 @@ export default function AnimatedInitials({ stroke }: { stroke: string }) {
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
-      className="-ml-6 w-24 h-24"
+      className={className}
     >
       <defs>
         <clipPath id={`clip1-${stroke.replace("#", "")}`}>
@@ -49,7 +57,7 @@ export default function AnimatedInitials({ stroke }: { stroke: string }) {
         strokeLinejoin={"round"}
         clipPath={`url(#clip1-${stroke.replace("#", "")})`}
         d="M31.57,31c-1.03,6.23-2.75,14.22-3.23,18.57-.34,3.07-.86,4.95,1.12,7.99,1.68,2.58,5.39.93,8.59-4.37,1.37-2.26,2.31-3.85,3.23-8.19,2.26-10.63,2.09-20.23,2.09-20.23.24-5.53-.29,23.49-1.76,44.05-.55,7.75-.1,7.08-2.74,15.06"
-        style={{ pathLength: path1Length }}
+        style={{ pathLength: path1Length, opacity: path1Opacity }}
       />
 
       <motion.path

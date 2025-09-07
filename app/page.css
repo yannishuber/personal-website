@@ -1,0 +1,15 @@
+/* Fade all non-hovered list items when any list item on the page is hovered */
+@media (hover: hover) {
+  body:has(.front-page-list .front-page-list-item:hover)
+    .front-page-list-item:not(:hover),
+  body:has(.front-page-list .front-page-list-item a:focus-visible)
+    .front-page-list-item:not(:has(a:focus-visible)) {
+    opacity: 0.5;
+  }
+
+  .front-page-list-item {
+    transition: opacity var(--ease-out-quad) 300ms;
+    transition-behavior: smooth;
+    transition-delay: 90ms;
+  }
+}
