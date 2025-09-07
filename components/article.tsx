@@ -9,7 +9,7 @@ export default async function Article({
 }) {
   return (
     <>
-      <div className="article-header z-10 fixed w-full max-w-5xl mx-auto h-64 top-0 hidden xl:block">
+      <div className="article-header z-10 fixed w-full max-w-5xl mx-auto h-48 top-0 hidden xl:block">
       </div>
       <h3 className="z-20 font-semibold text-2xl md:text-3xl tracking-tight col-start-1 xl:col-start-2 row-start-3 xl:row-start-2 self-center xl:sticky xl:top-8">
         {title}

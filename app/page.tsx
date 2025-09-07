@@ -1,6 +1,6 @@
 import Link from "next/link";
 import AnimatedInitials from "@/components/animated-svg";
-import "./page.css"
+import "./page.css";
 
 export default async function Home() {
   return (
@@ -26,7 +26,7 @@ export default async function Home() {
             <li className="front-page-list-item flex flex-col gap-2">
               <Link
                 href="/vetra"
-                className="font-semibold hover:bg-foreground/15 px-1 py-0.5 rounded w-fit -ml-1 transition-colors"
+                className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground"
               >
                 <h2>vetra</h2>
               </Link>
@@ -38,7 +38,7 @@ export default async function Home() {
             <li className="front-page-list-item flex flex-col gap-2">
               <Link
                 href="/mrcs"
-                className="font-semibold hover:bg-foreground/15 px-1 py-0.5 rounded w-fit -ml-1 transition-colors"
+                className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground"
               >
                 <h2>mrcs</h2>
               </Link>
@@ -64,7 +64,7 @@ export default async function Home() {
             <li className="front-page-list-item flex flex-col gap-2">
               <Link
                 href="/animations"
-                className="font-semibold hover:bg-foreground/15 px-1 py-0.5 rounded w-fit -ml-1 transition-colors"
+                className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground"
               >
                 <h2>animations</h2>
               </Link>
