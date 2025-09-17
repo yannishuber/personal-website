@@ -1,101 +1,98 @@
 "use client";
 
 import Image, { ImageProps } from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+import {
+  AnimatePresence,
+  motion,
+  SpringOptions,
+  Transition,
+} from "motion/react";
 
 export const ZoomableImage = (props: ImageProps) => {
   const [isZoomed, setIsZoomed] = useState(false);
-  const [scale, setScale] = useState(1);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const calculateScale = () => {
-    if (!imageRef.current) return 1;
-
-    const img = imageRef.current;
-    const imgRect = img.getBoundingClientRect();
-
-    // Available space (viewport minus 20px padding and space for caption)
-    const availableWidth = window.innerWidth - 20;
-    const availableHeight = window.innerHeight - 20 - 60; // 60px for caption space
-
-    // Calculate scale to fill either width or height (whichever is smaller)
-    const scaleX = availableWidth / imgRect.width;
-    const scaleY = availableHeight / imgRect.height;
-
-    return Math.min(scaleX, scaleY);
-  };
-
   const handleImageClick = () => {
-    
     if (!isZoomed) {
-      const newScale = calculateScale();
-      setScale(newScale);
+      document.body.style.overflow = "hidden";
     } else {
-      if (window.innerWidth >= 1280) {
-        setScale(1.2);
-      } else {
-        setScale(1.2);
-      }
+      document.body.style.overflow = "";
     }
 
     setIsZoomed(!isZoomed);
-    
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (isZoomed) {
-        const newScale = calculateScale();
-        setScale(newScale);
-      } else if (window.innerWidth >= 1280) {
-        setScale(1.2);
-      } else {
-        setScale(1);
-      }
-    };
+  const SPRING: Transition<SpringOptions> = {
+    type: "spring",
+    duration: 0.4,
+    bounce: 0.2,
+  };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isZoomed]);
-
-  useEffect(() => {
-    if (window.innerWidth >= 1280) {
-      setScale(1.2);
-    }
-  }, []);
+  const imageId =
+    typeof props.src === "string"
+      ? props.src
+      : (props.src as Partial<{ src: string }>).src;
 
   return (
     <>
-      {isZoomed && (
-        <span
-          className="fixed inset-0 z-50 flex flex-col justify-center items-center cursor-pointer"
-          onClick={handleImageClick}
-        >
-          {props.title && (
-            <span className="absolute bottom-0 left-0 right-0 text-center py-4">
-              <span className="text-sm font-semibold text-white">
-                {props.title}
-              </span>
+      <AnimatePresence>
+        {isZoomed && (
+          <>
+            <motion.span
+              className="fixed inset-0 z-20 backdrop-blur-sm bg-black/75"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <span
+              className="fixed inset-0 z-50 p-2 pt-16 md:p-5 md:pt-8 xl:p-12 xl:pt-12 flex w-full min-h-full overflow-y-scroll cursor-zoom-out"
+              onClick={handleImageClick}
+            >
+              <motion.span
+                key="zoomed-image"
+                layoutId={imageId}
+                className="w-full md:max-w-4xl xl:max-w-6xl flex flex-col gap-2 mx-auto h-fit"
+                transition={SPRING}
+              >
+                <Image
+                  className="rounded-md shadow-md !my-0 cursor-zoom-out h-auto w-full"
+                  {...(props as ImageProps)}
+                />
+                <motion.span
+                  key="zoomed-title"
+                  id={`${imageId}-title`}
+                  layoutId={`${imageId}-title`}
+                  className="text-sm text-semibold text-white/75 block"
+                  transition={SPRING}
+                >
+                  {props.title}
+                </motion.span>
+              </motion.span>
             </span>
-          )}
-        </span>
-      )}
-      <Image
-        ref={imageRef}
-        sizes="100vw"
-        width={1280}
-        height={853}
-        className="rounded-md shadow-md !my-0 mx-auto w-full h-auto cursor-pointer transition-transform duration-300 ease-in-out"
-        style={{
-          transform: `scale(${scale})`,
-          transformOrigin: "center",
-          zIndex: isZoomed ? 100 : "auto",
-        }}
-        onClick={handleImageClick}
-        {...props}
-      />
-      <span className="text-sm text-semibold text-foreground/75 mt-2 xl:mt-13 block">
-        {props.title}
+          </>
+        )}
+      </AnimatePresence>
+      <span className="mt-8 mb-4 xl:mt-16 xl:mb-8 block">
+        <motion.span
+          layoutId={imageId}
+          className="block xl:scale-[1.2]"
+          transition={SPRING}
+        >
+          <Image
+            className="rounded-md shadow-md !my-0 mx-auto w-full h-auto cursor-zoom-in"
+            {...props}
+            ref={imageRef}
+            onClick={handleImageClick}
+          />
+        </motion.span>
+        <motion.span
+          layoutId={`${imageId}-title`}
+          className="text-sm text-semibold text-foreground/75 mt-2 xl:mt-13 block"
+          transition={SPRING}
+        >
+          {props.title}
+        </motion.span>
       </span>
     </>
   );

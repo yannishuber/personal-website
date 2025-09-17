@@ -8,7 +8,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
 
-  const { metadata } = await import(`@/articles/${slug}.mdx`);
+  const { metadata } = await import(`@/articles/${slug}/${slug}.mdx`);
 
   if (!metadata) {
     return {
@@ -30,7 +30,7 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { default: Post, metadata } = await import(`@/articles/${slug}.mdx`);
+  const { default: Post, metadata } = await import(`@/articles/${slug}/${slug}.mdx`);
 
   return (
     <Article

@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
-import Image, { ImageProps } from "next/image";
+import { ImageProps } from "next/image";
 import Link from "next/link";
+import { ZoomableImage } from "./components/zoomable-image";
 
 const components: MDXComponents = {
   a: (props) => (
@@ -11,18 +12,7 @@ const components: MDXComponents = {
   ),
   img: (props) => {
     return (
-      <span className="mt-8 mb-4 xl:mt-16 xl:mb-8 block">
-        <Image
-          sizes="100vw"
-          width={1280}
-          height={853}
-          className="rounded-md shadow-md !my-0 mx-auto w-full h-auto xl:scale-[1.2]"
-          {...(props as ImageProps)}
-        />
-        <span className="text-sm text-semibold text-foreground/75 mt-2 xl:mt-13 block">
-          {props.title}
-        </span>
-      </span>
+      <ZoomableImage {...(props as ImageProps)} />
     );
   },
   h1: (props) => (
