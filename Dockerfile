@@ -1,7 +1,7 @@
 FROM node:23-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN npm install -g corepack@latest && corepack enable
  
 FROM base AS builder
 RUN apk update

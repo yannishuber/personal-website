@@ -23,40 +23,38 @@ export default async function Home() {
             Projects
           </h1>
           <ul className="front-page-list list-inside [&>li:not(:first-child)]:pt-3 [&>li:not(:last-child)]:pb-3">
-            <li className="front-page-list-item flex flex-col gap-2">
+            <li className="">
               <Link
-                href="/vetra"
-                className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground"
+                href="https://kaptive.ch"
+                className="front-page-list-item flex flex-col gap-2"
               >
-                <h2>vetra</h2>
+                <div className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground">
+                  <h2>Kaptive</h2>
+                </div>
+                <div>
+                  Modern digital signage solution.{" "}
+                  <span className="text-foreground/50">2025</span>
+                </div>
               </Link>
-              <div>
-                Interactive signage solution for museums and exhibitions.{" "}
-                <span className="text-foreground/50">2025</span>
-              </div>
             </li>
-            <li className="front-page-list-item flex flex-col gap-2">
+            <li className="">
               <Link
                 href="/mrcs"
-                className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground"
+                className="front-page-list-item flex flex-col gap-2"
               >
-                <h2>mrcs</h2>
+                <div className="font-semibold transition-colors underline decoration-1 decoration-foreground/50 hover:decoration-foreground">
+                  <h2>MRCS</h2>
+                </div>
+                <div>
+                  Model railway control system powering the entire Kaeserberg
+                  museum. <span className="text-foreground/50">2024</span>
+                </div>
               </Link>
-              <div>
-                Model railway control system powering the entire{" "}
-                <Link
-                  href="https://www.kaeserberg.ch/en/"
-                  className="underline decoration-foreground/50 hover:decoration-foreground transition-colors"
-                >
-                  Kaeserberg
-                </Link>{" "}
-                museum. <span className="text-foreground/50">2024</span>
-              </div>
             </li>
           </ul>
         </div>
 
-        <div className="col-start-1 row-start-3 md:col-start-1 md:row-start-2 xl:col-start-2 xl:row-start-1">
+        {/* <div className="col-start-1 row-start-3 md:col-start-1 md:row-start-2 xl:col-start-2 xl:row-start-1">
           <h1 className="text-xl font-semibold md:text-2xl tracking-tight mb-8">
             Stuff
           </h1>
@@ -74,17 +72,17 @@ export default async function Home() {
               </div>
             </li>
           </ul>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-8 col-start-1 row-start-1 md:col-start-2 xl:col-start-3">
           <span className="text-xl font-semibold md:text-2xl tracking-tight">
             I live in Bern, Switzerland. Currently, I am building{" "}
             <Link
-              href="https://vetra.ch"
+              href="https://kaptive.ch"
               target="_blank"
               className="font-semibold text-[#f06a22] underline decoration-[#f06a22]/50 hover:decoration-[#f06a22] transition-colors"
             >
-              vetra
+              Kaptive
             </Link>
             .
           </span>

@@ -43,7 +43,8 @@ export default async function Page({
 }
 
 export function generateStaticParams() {
-  return [{ slug: "animations", }, { slug: "vetra" }, { slug: "mrcs" }];
+  // return [{ slug: "animations", }, { slug: "vetra" }, { slug: "mrcs" }];
+  return [{ slug: "mrcs" }];
 }
 
 export const dynamicParams = false;

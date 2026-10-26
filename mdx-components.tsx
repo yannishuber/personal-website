@@ -2,8 +2,10 @@ import type { MDXComponents } from "mdx/types";
 import { ImageProps } from "next/image";
 import Link from "next/link";
 import { ZoomableImage } from "./components/zoomable-image";
+import { Video } from "./components/video";
 
 const components: MDXComponents = {
+  Video,
   a: (props) => (
     <Link
       {...props}
